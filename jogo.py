@@ -1,4 +1,5 @@
 from funcoes import *
 
-window,assets = inicializa()
-game_loop(window,assets)
+teste = Tela()
+
+Tela.game_loop(teste)
