@@ -1,0 +1,22 @@
+body {
+    width: 100vw;
+    background-image: linear-gradient(to bottom, #ffffff, #838393);
+    text-emphasis-color: black;
+}
+
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: content-box;
+}
+
+.Imagem{ 
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
+
+.Titulo {
+    text-align: center;
+    width: 100%;
+}
