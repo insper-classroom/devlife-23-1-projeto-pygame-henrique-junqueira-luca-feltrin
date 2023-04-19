@@ -1,22 +1,43 @@
 body {
-    width: 100vw;
-    background-image: linear-gradient(to bottom, #ffffff, #838393);
     text-emphasis-color: black;
+    font-family: "Times New Roman", Times, serif;
+
 }
 
+html {
+    scroll-behavior: smooth;
+
+}
+
+
 * {
-    padding: 0px;
+    padding: 0;
     margin: 0px;
     box-sizing: content-box;
 }
 
-.Imagem{ 
+.Imagem { 
     display: flex;
     justify-content: center;
-    margin: 20px;
+    margin: 90px;
 }
 
-.Titulo {
+header {
     text-align: center;
+    background-image: var(--gradient);
+    height: 100px;
     width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    
 }
+
+.Desc {
+    margin: 10px;
+
+}
+
+:root {
+    --gradient: linear-gradient(45deg, rgb(0, 0, 0), rgb(11, 217, 28), black);
+  }
