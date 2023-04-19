@@ -1,7 +1,5 @@
 body {
-    text-emphasis-color: black;
-    font-family: "Times New Roman", Times, serif;
-
+    background-color: #666262;
 }
 
 html {
@@ -12,32 +10,87 @@ html {
 
 * {
     padding: 0;
-    margin: 0px;
+    margin: 0;
     box-sizing: content-box;
+    color: aliceblue;
+
 }
 
 .Imagem { 
     display: flex;
     justify-content: center;
-    margin: 90px;
+    margin: 20px;
 }
 
-header {
-    text-align: center;
+.header {  
     background-image: var(--gradient);
-    height: 100px;
+    height:80px;
     width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    
 }
+
+
+.header_dentro{
+    width: 1000px;
+    height: 100%;
+    display: block;
+    margin: 0 auto;
+
+}
+
+
+.container{
+    height: 100%;
+    display: table;
+    float: left;
+}
+
+.container h1{
+    color:white;
+    height: 100%;
+    display: table-cell;
+    vertical-align: middle;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 32px;
+    font-weight: 200;
+}
+
+.container h1 span{
+    font-weight: 1000;
+}
+
+
+.nav{
+    float: right;
+    height: 100%;
+}
+
+.nav a{
+    height: 100%;
+    display: table;
+    float: left;
+    padding: 0px 20px;
+}
+
+
+.nav a:last-child{
+    padding-right: 0px;
+}
+
+.nav a li{
+    display: table-cell;
+    vertical-align: middle;
+    height: 100%;
+    font-family: 'Roboto Mono', monospace;
+
+}
+
 
 .Desc {
     margin: 10px;
+    font-family: 'Chivo Mono', monospace;
 
 }
 
 :root {
-    --gradient: linear-gradient(45deg, rgb(0, 0, 0), rgb(11, 217, 28), black);
+    --gradient: linear-gradient(45deg, rgb(0, 0, 0), #666262, black);
   }
