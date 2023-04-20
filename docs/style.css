@@ -15,11 +15,6 @@ html {
 
 }
 
-.Imagem { 
-    display: flex;
-    justify-content: center;
-    margin: 20px;
-}
 
 .header {  
     background-image: var(--gradient);
@@ -33,7 +28,7 @@ html {
     height: 100%;
     display: block;
     margin: 0 auto;
-
+    
 }
 
 
@@ -81,13 +76,12 @@ html {
     vertical-align: middle;
     height: 100%;
     font-family: 'Roboto Mono', monospace;
-
+    
 }
 
 
 .intro {
     display: inline-block;
-    text-align: center;
     margin: 10px;
     color: black;
     font-family: 'Chivo Mono', monospace;
@@ -96,7 +90,7 @@ html {
     border: 2px solid white;
     padding: 30px;
     margin: 40px;
-    
+    background-color: white;
 }
 
 .intro h1{
@@ -107,6 +101,18 @@ html {
     padding-bottom: 5px;
 }
 
+.telas { 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+
+}
+
+.imagem{
+    padding: 20px;
+}
+
 :root {
     --gradient: linear-gradient(45deg, rgb(0, 0, 0), #666262, black);
-  }
+}
