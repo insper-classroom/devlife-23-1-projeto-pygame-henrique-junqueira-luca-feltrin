@@ -1,5 +1,8 @@
 import pygame
 
+import random
+
+
 class Tela:
     def __init__(self):
         pygame.init()
@@ -9,13 +12,14 @@ class Tela:
         imagem_fundo = pygame.transform.scale(pygame.image.load('assets/imagem_fundo_pygame.jpg'), (540,720))
         imagem_toshi = pygame.transform.scale(pygame.image.load('assets/toshi.png'),(80,100))
         botao_play = pygame.transform.scale(pygame.image.load('assets/botao_play.png'),(220,140))
-    
         botao_info = pygame.transform.scale(pygame.image.load('assets/botao_info.png'),(220,140))
+        plataforma = pygame.transform.scale(pygame.image.load('assets/plataforma.png'),(110,70))
 
         self.state = {
             'tela_inicio':True,
             'tela_jogo':False,
-            'tela_gameover': False
+            'tela_gameover': False,
+            'coord_plataformas': []
 
         }
 
@@ -23,6 +27,7 @@ class Tela:
             'botao_play':botao_play,
             'rect_play': pygame.Rect(180,350,220,140),
             'botao_info':botao_info,
+            'plataforma':plataforma,
             'imagem_fundo': imagem_fundo,
             'toshi':imagem_toshi,
             't0' : 0,
@@ -30,6 +35,11 @@ class Tela:
             'gravidade': 1,
             'pulando': False
         }
+
+        for i in range(4):
+            x = random.randint(0,400)
+            y = random.randint(350,500)
+            self.state['coord_plataformas'].append((x,y))
 
         self.personagem = Personagem(self.window, [230, 400] , self.assets)
     
@@ -87,6 +97,10 @@ class Tela:
 
         if self.state['tela_jogo']:
             self.window.blit(self.assets['imagem_fundo'],(0,0))
+
+            for i in range(len(self.state['coord_plataformas'])):
+                self.window.blit(self.assets['plataforma'],self.state['coord_plataformas'][i])
+
             self.personagem.desenha()
             pygame.display.update()
         
@@ -121,3 +135,8 @@ class Personagem:
         if self.rect.y >= 600:
             self.rect.y = 599
         
+class Plataforma:
+    def __init__(self,window,state):
+        self.velocidade = 1
+        self.state = state
+        self.rect = pygame.Rect(self.state['coord_plataformas'][0],self.state['coord_plataformas'][1],110,70)
