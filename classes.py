@@ -8,12 +8,26 @@ class Tela:
         self.window = pygame.display.set_mode((540,720))
         imagem_fundo = pygame.transform.scale(pygame.image.load('assets/imagem_fundo_pygame.jpg'), (540,720))
         imagem_toshi = pygame.transform.scale(pygame.image.load('assets/toshi.png'),(80,100))
-        
+        botao_play = pygame.transform.scale(pygame.image.load('assets/botao_play.png'),(220,140))
+    
+        botao_info = pygame.transform.scale(pygame.image.load('assets/botao_info.png'),(220,140))
+
+        self.state = {
+            'tela_inicio':True,
+            'tela_jogo':False,
+            'tela_gameover': False
+
+        }
+
         self.assets = {
+            'botao_play':botao_play,
+            'rect_play': pygame.Rect(180,350,220,140),
+            'botao_info':botao_info,
             'imagem_fundo': imagem_fundo,
             'toshi':imagem_toshi,
             't0' : 0,
-            'tempo': 0
+            'tempo': 0,
+            'gravidade': 0
         }
 
         self.personagem = Personagem(self.window, [230, 600] , self.assets)
@@ -25,9 +39,14 @@ class Tela:
         self.assets['t0'] = t1
         self.assets['tempo'] = tempo/1000
         
+        mouse_pos = pygame.mouse.get_pos()
+        
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                return False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if self.assets['rect_play'].collidepoint(mouse_pos):
+                    self.state['tela_inicio'] = False
+                    self.state['tela_jogo'] = True
+
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_a:
                     self.personagem.velocidade[0] -=1000
@@ -46,7 +65,8 @@ class Tela:
                     self.personagem.velocidade[1] +=1000
                 if event.key == pygame.K_s:
                     self.personagem.velocidade[1] -=1000
-
+            if event.type == pygame.QUIT:
+                return False
         
         
 
@@ -57,9 +77,17 @@ class Tela:
         return True
 
     def desenha(self):
-        self.window.blit(self.assets['imagem_fundo'],(0,0))
-        self.personagem.desenha()
-        pygame.display.update()
+        if self.state['tela_inicio']:
+            self.window.blit(self.assets['imagem_fundo'],(0,0))
+            self.window.blit(self.assets['botao_play'],(180,350))
+            self.window.blit(self.assets['botao_info'],(180,420))
+
+            pygame.display.update()
+
+        if self.state['tela_jogo']:
+            self.window.blit(self.assets['imagem_fundo'],(0,0))
+            self.personagem.desenha()
+            pygame.display.update()
         
     def game_loop(self):
         while self.atualiza_estado():
@@ -73,13 +101,15 @@ class Personagem:
         self.rect = pygame.Rect(pos[0], pos[1], 80, 100)
         self.window = window
         self.assets = assets
+        self
     
     def desenha(self):
+        self.rect.y += self.assets['gravidade']
         self.window.blit(self.assets['toshi'],(self.rect.x, self.rect.y))
     
     def update(self):
-        self.rect.x += self.velocidade[0]*(self.assets['tempo'])
-        self.rect.y += self.velocidade[1]*(self.assets['tempo'])
+        self.rect.x += self.velocidade[0]*self.assets['tempo']
+        self.rect.y += self.velocidade[1]*self.assets['tempo']
 
     def muda_posicao(self):
         if self.rect.x >= 540:
