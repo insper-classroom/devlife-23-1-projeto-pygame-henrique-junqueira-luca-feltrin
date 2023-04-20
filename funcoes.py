@@ -21,6 +21,7 @@ class Tela:
     def atualiza_estado(self):
         t1 = pygame.time.get_ticks()
         tempo = t1- self.assets['t0'] if self.assets['t0']>=0 else t1
+        tempo_real = tempo/1000
         self.assets['t0'] = t1
         self.assets['tempo'] = tempo
         
@@ -29,14 +30,22 @@ class Tela:
                 return False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_a:
-                    self.personagem.velocidade[0] -=1
+                    self.personagem.velocidade[0] -=0.5
                 if event.key == pygame.K_d:
-                    self.personagem.velocidade[0] +=1
+                    self.personagem.velocidade[0] +=0.5
+                if event.key == pygame.K_w:
+                    self.personagem.velocidade[1] -=0.5
+                if event.key == pygame.K_s:
+                    self.personagem.velocidade[1] +=0.5
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_a:
-                    self.personagem.velocidade[0] +=1
+                    self.personagem.velocidade[0] +=0.5
                 if event.key == pygame.K_d:
-                    self.personagem.velocidade[0] -=1
+                    self.personagem.velocidade[0] -=0.5
+                if event.key == pygame.K_w:
+                    self.personagem.velocidade[1] +=0.5
+                if event.key == pygame.K_s:
+                    self.personagem.velocidade[1] -=0.5
 
         
         
@@ -64,14 +73,13 @@ class Personagem:
         self.rect = pygame.Rect(pos[0], pos[1], 80, 100)
         self.window = window
         self.assets = assets
-        self
     
     def desenha(self):
         self.window.blit(self.assets['toshi'],(self.rect.x, self.rect.y))
     
     def update(self):
-        self.rect.x += self.velocidade[0]*self.assets['tempo']
-        self.rect.y += self.velocidade[1]*self.assets['tempo']
+        self.rect.x += self.velocidade[0]*(self.assets['tempo']/1000)
+        self.rect.y += self.velocidade[1]*(self.assets['tempo']/1000)
 
     def muda_posicao(self):
         if self.rect.x >= 540:

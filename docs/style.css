@@ -12,7 +12,6 @@ html {
     padding: 0;
     margin: 0;
     box-sizing: content-box;
-    color: aliceblue;
 
 }
 
@@ -69,6 +68,7 @@ html {
     display: table;
     float: left;
     padding: 0px 20px;
+    color: aliceblue;
 }
 
 
@@ -85,10 +85,26 @@ html {
 }
 
 
-.Desc {
+.intro {
+    display: inline-block;
+    text-align: center;
     margin: 10px;
+    color: black;
     font-family: 'Chivo Mono', monospace;
+    height: auto;
+    border-radius: 7px;
+    border: 2px solid white;
+    padding: 30px;
+    margin: 40px;
+    
+}
 
+.intro h1{
+    padding-bottom: 15px;
+}
+
+.intro li{
+    padding-bottom: 5px;
 }
 
 :root {
