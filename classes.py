@@ -10,7 +10,7 @@ class Tela:
         
         self.window = pygame.display.set_mode((540,720))
         imagem_fundo = pygame.transform.scale(pygame.image.load('assets/imagem_fundo_pygame.jpg'), (540,720))
-        imagem_toshi = pygame.transform.scale(pygame.image.load('assets/toshi.png'),(80,100))
+        imagem_toshi = pygame.transform.scale(pygame.image.load('assets/toshi.png').convert_alpha(),(80,100))
         botao_play = pygame.transform.scale(pygame.image.load('assets/botao_play.png'),(220,140))
         botao_info = pygame.transform.scale(pygame.image.load('assets/botao_info.png'),(220,140))
         plataforma = pygame.transform.scale(pygame.image.load('assets/plataforma.png'),(110,70))
@@ -19,13 +19,13 @@ class Tela:
             'tela_inicio':True,
             'tela_jogo':False,
             'tela_gameover': False,
-            'coord_plataformas': []
+            'plataformas': []
 
         }
 
         self.assets = {
             'botao_play':botao_play,
-            'rect_play': pygame.Rect(180,350,220,140),
+            'rect_play': pygame.Rect(180,360,220,100),
             'botao_info':botao_info,
             'plataforma':plataforma,
             'imagem_fundo': imagem_fundo,
@@ -35,11 +35,6 @@ class Tela:
             'gravidade': 1,
             'pulando': False
         }
-
-        for i in range(4):
-            x = random.randint(0,400)
-            y = random.randint(350,500)
-            self.state['coord_plataformas'].append((x,y))
 
         self.personagem = Personagem(self.window, [230, 400] , self.assets)
     
@@ -98,9 +93,22 @@ class Tela:
         if self.state['tela_jogo']:
             self.window.blit(self.assets['imagem_fundo'],(0,0))
 
-            for i in range(len(self.state['coord_plataformas'])):
-                self.window.blit(self.assets['plataforma'],self.state['coord_plataformas'][i])
-
+            # plataforma1 = Plataformas(self.window,110,70,100,100)
+            # plataforma2 = Plataformas(self.window,110,70,250,150)
+            # plataforma3 = Plataformas(self.window,110,70,260,350)
+            # plataforma4 = Plataformas(self.window,110,70,356,530)
+            # plataforma5 = Plataformas(self.window,110,70,324,465)
+            # plataforma6 = Plataformas(self.window,110,70,234,523)
+            # plataforma7 = Plataformas(self.window,110,70,74,321)
+            # plataforma8 = Plataformas(self.window,110,70,54,234)
+  
+            # plataforma1.desenha_plataformas()
+            # plataforma2.desenha_plataformas()
+            # plataforma3.desenha_plataformas()
+            # plataforma4.desenha_plataformas()
+            # plataforma5.desenha_plataformas()
+            # plataforma6.desenha_plataformas()
+            # plataforma7.desenha_plataformas()
             self.personagem.desenha()
             pygame.display.update()
         
@@ -122,7 +130,7 @@ class Personagem:
 
     def desenha(self):
         self.rect.y += self.assets['gravidade']
-        self.window.blit(self.assets['toshi'],(self.rect.x, self.rect.y))
+        self.window.blit(self.assets['toshi'],(self.rect.x,self.rect.y ))
     
     def update(self):
         self.rect.x += self.velocidade[0]*self.assets['tempo']
@@ -134,9 +142,17 @@ class Personagem:
             self.rect.x = 530
         if self.rect.y >= 600:
             self.rect.y = 599
-        
-class Plataforma:
-    def __init__(self,window,state):
-        self.velocidade = 1
-        self.state = state
-        self.rect = pygame.Rect(self.state['coord_plataformas'][0],self.state['coord_plataformas'][1],110,70)
+
+class Plataformas:
+    def __init__(self,window,width,height,coord_x,coord_y):
+        self.window = window
+        self.width = width
+        self.height = height
+        self.x = coord_x
+        self.y = coord_y
+
+    def desenha_plataformas(self):
+        plataforma = pygame.transform.scale(pygame.image.load('assets/plataforma.png'),(self.width,self.height))
+        pygame.Rect(self.x,self.y,self.width,self.height)
+        self.window.blit(plataforma,(self.x,self.y))
+  
