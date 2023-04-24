@@ -20,6 +20,8 @@ html {
     background-image: var(--gradient);
     height:80px;
     width: 100%;
+    position: relative;
+    top: 0px;
 }
 
 
@@ -80,17 +82,22 @@ html {
 }
 
 
+.intros-container {
+    display: flex;
+    margin: auto;
+    max-width: 900px;
+    padding-top: 50px; 
+    gap: 20px;   
+}
+
 .intro {
-    display: inline-block;
-    margin: 10px;
-    color: black;
+    display: block;
+    color: white;
     font-family: 'Chivo Mono', monospace;
     height: auto;
     border-radius: 7px;
     border: 2px solid white;
     padding: 30px;
-    margin: 40px;
-    background-color: white;
 }
 
 .intro h1{
@@ -101,18 +108,98 @@ html {
     padding-bottom: 5px;
 }
 
+
+.intro ul{
+    padding-bottom: 5px;
+}
+
+.intro h2{
+    padding: 10px;
+}
+
+.intro h4{
+    padding-top: 25px;
+}
+
 .telas { 
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    width: fit-content;
     padding: 20px;
+    margin: auto;
+    margin-top: 30px;
+    font-family: 'Chivo Mono', monospace;
+    border-radius: 7px;
+    border: 2px solid white;
+}
 
+.telas h1{
+    color: white;
+   text-align: center;
+   padding-bottom: 10px;
 }
 
 .imagem{
     padding: 20px;
 }
 
+
+.log{
+    color: white;
+    font-family: 'Chivo Mono', monospace;
+    width: 840px;
+    text-align: center;
+    height: auto;
+    border-radius: 7px;
+    border: 2px solid white;
+    padding: 30px;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.log h1{
+    padding-bottom: 10px;
+}
+
+.heuristica{
+    color: white;
+    font-family: 'Chivo Mono', monospace;
+    width: 840px;
+    text-align: center;
+    height: auto;
+    border-radius: 7px;
+    border: 2px solid white;
+    padding: 30px;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.heuristica h1{
+    padding-bottom: 10px;
+}
+
+.download{
+    color: white;
+    font-family: 'Chivo Mono', monospace;
+    width: 840px;
+    text-align: center;
+    height: auto;
+    border-radius: 7px;
+    border: 2px solid white;
+    padding: 30px;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.download h1{
+    padding-bottom: 10px;
+}
+
+
 :root {
     --gradient: linear-gradient(45deg, rgb(0, 0, 0), #666262, black);
 }
+
