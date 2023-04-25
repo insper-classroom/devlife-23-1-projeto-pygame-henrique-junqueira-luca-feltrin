@@ -35,7 +35,7 @@ class Tela:
             'toshi':imagem_toshi,
             't0' : 0,
             'tempo': 0,
-            'gravidade': 1,
+            'gravidade': 5,
             'pulando': False
         }
 
@@ -67,10 +67,11 @@ class Tela:
                     self.personagem.velocidade[0] -=1000
                 if event.key == pygame.K_d:
                     self.personagem.velocidade[0] +=1000
-                if event.key == pygame.K_SPACE:
-                    self.assets['pulando'] = True
                 if event.key == pygame.K_w:
                     self.state['desce_tela'] = True
+                if event.key == pygame.K_SPACE:
+                    self.assets['pulando'] = True
+                    self.assets['gravidade'] = 1
 
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_a:
@@ -79,6 +80,7 @@ class Tela:
                     self.personagem.velocidade[0] -=1000
                 if event.key == pygame.K_w:
                     self.state['desce_tela'] = False
+
             if event.type == pygame.QUIT:
                 return False
        
@@ -89,16 +91,23 @@ class Tela:
                 self.assets['pulando'] = False
                 self.personagem.y_vel = self.personagem.jump_alt
 
-
+        print(self.personagem.y_vel)
         if self.state['desce_tela']:
             for coord in self.state['plataformas']:
                 coord.y+=4
 
+        if self.personagem.y_vel<=-20:
+            self.assets['gravidade'] = 5
+
+
         self.personagem.update()
         
         for plataforma in self.state['plataformas']:
-            if plataforma.colliderect(self.personagem.rect):
-                print("oi")
+            if self.personagem.y_vel <=0 and plataforma.colliderect(self.personagem.rect):
+                if plataforma.top <= self.personagem.rect.bottom :
+                    self.personagem.rect.y = plataforma.top-100
+                    self.personagem.y_vel = self.personagem.jump_alt 
+                    self.assets['pulando'] = False
 
         self.personagem.muda_posicao()
 
