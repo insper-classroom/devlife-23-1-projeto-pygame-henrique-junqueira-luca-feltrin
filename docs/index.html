@@ -11,27 +11,29 @@
 <body>
     <div class="header">
         <div class="header_dentro">
+            <img src="img/toshi.png" alt="" width="80" height="80" class="logo">
             <div class="container">
                 <h1>TOSHI'S <span>ADVENTURE</span> </h1>
             </div>
             <ul class="nav">
-                <a><li>Descrição</li></a>
-                <a><li>Telas</li></a>
-                <a><li>Download</li></a>
-                <a><li>Heurísticas</li></a>
+                <a href="#descrição" ><li>Descrição</li> </a>
+                <a href="#telas"><li>Telas</li> </a>
+                <a href="#download"><li>Download</li></a>
+                <a href="#heuristica"><li>Heurísticas</li></a>
             </ul>
         </div>
     </div>
 
-    <div class="intros-container">
+    <div class="intros-container" id="descrição">
+        
         <div class="intro"> 
-            <p>
-                <h1>Nosso Jogo:</h1>
-                <ul>O grande mestre Toshi passeava no vale quando de repente... <strong>PUM</strong>! Sua coxinha começa a voar. </ul>
-                <ul> Sendo o grande mestre que ele é, Toshi resolve ir a busca de sua preciosa.</ul>
-                <ul> A aventura começa agora!</ul>
-                </ul>
-            </p> 
+                <p>
+                        <h1>Nosso Jogo:</h1>
+                        <ul>O grande mestre Toshi passeava no vale quando de repente... <strong>PUM</strong>! Sua coxinha começa a voar. </ul>
+                        <ul> Sendo o grande mestre que ele é, Toshi resolve ir a busca de sua preciosa.</ul>
+                        <ul> A aventura começa agora!</ul>
+                    </ul>
+                </p> 
             
         </div>    
         <div class="intro"> 
@@ -48,7 +50,7 @@
         </div>    
     </div>
 
-    <section class="tela">
+    <section class="tela" id="telas">
 
         <div class="telas">
             <h1>Telas do jogo</h1>
@@ -61,15 +63,20 @@
         
     <div class="log">
         <h1>Dev Log</h1>
+        <h5>(As infos estão em ordem cronológica)</h5>
         <ul>
-            <ul>18/04 - Começo da 1a sprint</ui>
-            <ul>25/04 - Término da 1a sprint</ui>
-            <ul>26/04 - Começo da 2a sprint</ul>
+            <h3>18/04 - 24/04 -> Começo/Término da 1a sprint</h3>
+            <p>
+                <li>Começo da 1a versão do site</li>
+                <li>Começo da 1a versão do jogo</li>
+                <li>Implementação das primeiras funções do jogo</li>
+            </p>
+            <ul>25/04 - Começo da 2a sprint</ul>
             <ul>02/05 - Término da 2a sprint</ul>
         </ul>
     </div>
 
-    <div class="heuristica">
+    <div class="heuristica" id="heuristica">
         <h1>Heurísticas</h1>
         <ul>
             <ul>Problema 1: Header que não acompanha o site no scroll down</ul>
@@ -80,10 +87,11 @@
         </ul>
     </div>
 
-    <div class="download">
+    <div class="download" id="download">
         <h1>Download</h1>
     </div>
 
+    
 
 
 </body>

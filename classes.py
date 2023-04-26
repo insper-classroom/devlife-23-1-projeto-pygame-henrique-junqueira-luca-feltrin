@@ -22,7 +22,8 @@ class Tela:
             'desce_tela': False,
             'desce_tela_num':0,
             'plataformas': [],
-            'rect_plataformas':[]
+            'rect_plataformas':[],
+            'pulou': True
 
         }
 
@@ -35,8 +36,7 @@ class Tela:
             'toshi':imagem_toshi,
             't0' : 0,
             'tempo': 0,
-            'gravidade': 5,
-            'pulando': False
+            'colidiu': True
         }
 
         with open('plataformas.txt','r') as arquivo:
@@ -45,7 +45,7 @@ class Tela:
                 coord = linha.split(',')
                 self.state['plataformas'].append(pygame.Rect(int(coord[0]),int(coord[1]),80,15))
 
-        self.personagem = Personagem(self.window, [230, 400] , self.assets)
+        self.personagem = Personagem(self.window, [230, 300] , self.assets)
     
     def atualiza_estado(self):
         pygame.time.Clock().tick(120)
@@ -64,52 +64,48 @@ class Tela:
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_a:
-                    self.personagem.velocidade[0] -=1000
+                    self.personagem.velocidade -=800
                 if event.key == pygame.K_d:
-                    self.personagem.velocidade[0] +=1000
+                    self.personagem.velocidade +=800
                 if event.key == pygame.K_w:
                     self.state['desce_tela'] = True
-                if event.key == pygame.K_SPACE:
-                    self.assets['pulando'] = True
-                    self.assets['gravidade'] = 1
-
+                if event.key == pygame.K_SPACE and self.personagem.rect.y <= 599 or self.assets['colidiu'] == True :
+                    self.state['pulou'] = True
+                    self.personagem.gravidade = -15
+            
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_a:
-                    self.personagem.velocidade[0] +=1000
+                    self.personagem.velocidade +=800
                 if event.key == pygame.K_d:
-                    self.personagem.velocidade[0] -=1000
+                    self.personagem.velocidade -=800
                 if event.key == pygame.K_w:
                     self.state['desce_tela'] = False
+                
 
             if event.type == pygame.QUIT:
                 return False
-       
-        if self.assets['pulando']:
-            self.personagem.rect.y -= self.personagem.y_vel
-            self.personagem.y_vel -= self.assets['gravidade']
-            if self.personagem.y_vel < -self.personagem.jump_alt:
-                self.assets['pulando'] = False
-                self.personagem.y_vel = self.personagem.jump_alt
 
-        print(self.personagem.y_vel)
         if self.state['desce_tela']:
             for coord in self.state['plataformas']:
                 coord.y+=4
 
-        if self.personagem.y_vel<=-20:
-            self.assets['gravidade'] = 5
-
 
         self.personagem.update()
-        
+
+    
         for plataforma in self.state['plataformas']:
-            if self.personagem.y_vel <=0 and plataforma.colliderect(self.personagem.rect):
-                if plataforma.top <= self.personagem.rect.bottom :
-                    self.personagem.rect.y = plataforma.top-100
-                    self.personagem.y_vel = self.personagem.jump_alt 
-                    self.assets['pulando'] = False
+            if plataforma.top <= self.personagem.rect.bottom:
+                if plataforma.colliderect(self.personagem.rect):
+                    if self.personagem.alt < plataforma.y - 100 :
+                        self.assets['colidiu'] = True
+                        self.personagem.rect.bottom = plataforma.top
+            else:
+                self.assets['colidiu'] = False
+
 
         self.personagem.muda_posicao()
+
+        print(self.personagem.gravidade)
 
         return True
 
@@ -139,20 +135,25 @@ class Tela:
 class Personagem:
     def __init__(self, window, pos,assets):
         self.vida = 3
-        self.jump_alt = 20
-        self.y_vel = self.jump_alt
-        self.velocidade = [0,self.y_vel]
         self.rect = pygame.Rect(pos[0], pos[1], 80, 100)
+        self.velocidade = 0
         self.window = window
         self.assets = assets
-
+        self.gravidade = 0
+        self.alt = 1000
+        self.colidiu = assets['colidiu']
 
     def desenha(self):
-        self.rect.y += self.assets['gravidade']
         self.window.blit(self.assets['toshi'],(self.rect.x,self.rect.y ))
     
     def update(self):
-        self.rect.x += self.velocidade[0]*self.assets['tempo']
+        self.gravidade+=0.8
+        #print(self.gravidade)
+        self.rect.y += self.gravidade
+        if self.gravidade < 0:
+        #    if self.rect.y < self.alt:
+                self.alt = self.rect.y
+        self.rect.x += self.velocidade*self.assets['tempo']
 
     def muda_posicao(self):
         if self.rect.x >= 540:
@@ -161,6 +162,11 @@ class Personagem:
             self.rect.x = 530
         if self.rect.y >= 600:
             self.rect.y = 599
+            self.gravidade = 0
+        if self.assets['colidiu']:
+            self.gravidade = 0
+            
+
 
 class Plataformas:
     def __init__(self,window,width,height,coord_x,coord_y):
