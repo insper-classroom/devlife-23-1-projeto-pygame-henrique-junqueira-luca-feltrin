@@ -36,7 +36,8 @@ class Tela:
             'toshi':imagem_toshi,
             't0' : 0,
             'tempo': 0,
-            'colidiu': True
+            'colidiu': True,
+            'altura': 0
         }
 
         with open('plataformas.txt','r') as arquivo:
@@ -56,11 +57,19 @@ class Tela:
         
         mouse_pos = pygame.mouse.get_pos()
         
+        altura1 = self.personagem.rect.y
+        if altura1 == self.assets['altura']:
+            pode_pular = True
+        else: 
+            pode_pular = False
+        self.assets['altura'] = self.personagem.rect.y
+
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if self.assets['rect_play'].collidepoint(mouse_pos):
                     self.state['tela_inicio'] = False
                     self.state['tela_jogo'] = True
+
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_a:
@@ -69,7 +78,7 @@ class Tela:
                     self.personagem.velocidade +=800
                 if event.key == pygame.K_w:
                     self.state['desce_tela'] = True
-                if event.key == pygame.K_SPACE and self.personagem.rect.y <= 599 or self.assets['colidiu'] == True :
+                if event.key == pygame.K_SPACE and pode_pular :
                     self.state['pulou'] = True
                     self.personagem.gravidade = -15
             
@@ -104,8 +113,6 @@ class Tela:
 
 
         self.personagem.muda_posicao()
-
-        print(self.personagem.gravidade)
 
         return True
 
