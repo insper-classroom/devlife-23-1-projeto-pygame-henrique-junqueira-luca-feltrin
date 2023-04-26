@@ -188,6 +188,10 @@ html {
     padding-bottom: 10px;
 }
 
+.heuristica ul{
+    padding-bottom: 10px;
+}
+
 .download{
     color: white;
     font-family: 'Chivo Mono', monospace;
