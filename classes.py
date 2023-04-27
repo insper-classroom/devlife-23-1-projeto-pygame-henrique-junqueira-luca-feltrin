@@ -36,7 +36,7 @@ class Tela:
             'toshi':imagem_toshi,
             't0' : 0,
             'tempo': 0,
-            'colidiu': True,
+            'colidiu': False,
             'altura': 0
         }
 
@@ -58,7 +58,7 @@ class Tela:
         mouse_pos = pygame.mouse.get_pos()
         
         altura1 = self.personagem.rect.y
-        if altura1 == self.assets['altura']:
+        if altura1 == self.assets['altura'] or self.assets['colidiu']:
             pode_pular = True
         else: 
             pode_pular = False
@@ -71,14 +71,14 @@ class Tela:
                     self.state['tela_jogo'] = True
 
 
+            if event.type == pygame.QUIT:
+                return False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_a:
                     self.personagem.velocidade -=800
                 if event.key == pygame.K_d:
                     self.personagem.velocidade +=800
-                if event.key == pygame.K_w:
-                    self.state['desce_tela'] = True
-                if event.key == pygame.K_SPACE and pode_pular :
+                if event.key == pygame.K_SPACE and pode_pular:
                     self.state['pulou'] = True
                     self.personagem.gravidade = -15
             
@@ -90,29 +90,39 @@ class Tela:
                 if event.key == pygame.K_w:
                     self.state['desce_tela'] = False
                 
+        if self.personagem.rect.y < 125:
+            self.state['desce_tela'] = True
+            
+        if self.personagem.rect.y > 150:
+                self.state['desce_tela'] = False
 
-            if event.type == pygame.QUIT:
-                return False
 
         if self.state['desce_tela']:
             for coord in self.state['plataformas']:
-                coord.y+=4
-
+                coord.y+=2
+        
+        # if self.personagem.rect.y > 1000:
+        #     return False
+        
 
         self.personagem.update()
 
-    
+
+        test = False
         for plataforma in self.state['plataformas']:
             if plataforma.top <= self.personagem.rect.bottom:
                 if plataforma.colliderect(self.personagem.rect):
                     if self.personagem.alt < plataforma.y - 100 :
                         self.assets['colidiu'] = True
-                        self.personagem.rect.bottom = plataforma.top
-            else:
-                self.assets['colidiu'] = False
-
-
+                        test = True
+                        self.personagem.rect.bottom = plataforma.top+4
+        if (not test):
+            self.assets['colidiu'] = False
+       
+       
         self.personagem.muda_posicao()
+
+        print(self.assets['colidiu'])
 
         return True
 
@@ -140,7 +150,7 @@ class Tela:
 
 
 class Personagem:
-    def __init__(self, window, pos,assets):
+    def __init__(self, window, pos,assets,):
         self.vida = 3
         self.rect = pygame.Rect(pos[0], pos[1], 80, 100)
         self.velocidade = 0
@@ -154,12 +164,15 @@ class Personagem:
         self.window.blit(self.assets['toshi'],(self.rect.x,self.rect.y ))
     
     def update(self):
-        self.gravidade+=0.8
-        #print(self.gravidade)
+        if self.colidiu:
+            self.gravidade = 0
+        else:
+            self.gravidade+=0.8
+        
         self.rect.y += self.gravidade
-        if self.gravidade < 0:
-        #    if self.rect.y < self.alt:
-                self.alt = self.rect.y
+
+        if self.gravidade <= 0:
+            self.alt = self.rect.y
         self.rect.x += self.velocidade*self.assets['tempo']
 
     def muda_posicao(self):
@@ -167,8 +180,7 @@ class Personagem:
             self.rect.x = 1
         if self.rect.x <= 0:
             self.rect.x = 530
-        if self.rect.y >= 600:
-            self.rect.y = 599
+        if self.rect.y >= 700:
             self.gravidade = 0
         if self.assets['colidiu']:
             self.gravidade = 0
@@ -187,4 +199,3 @@ class Plataformas:
     def desenha_plataformas(self):
         plataforma = pygame.transform.scale(pygame.image.load('assets/plataforma.png'),(self.width,self.height))
         self.window.blit(plataforma,(self.x,self.y))
-  
