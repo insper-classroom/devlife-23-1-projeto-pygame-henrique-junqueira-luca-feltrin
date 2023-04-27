@@ -17,6 +17,7 @@ html {
 
 .logo {
     position: absolute;
+    margin-top: 4px;
     left: 20px;
 }
 
@@ -45,7 +46,7 @@ html {
 }
 
 .container h1{
-    color:white;
+    color:rgb(221,223,225);
     height: 100%;
     display: table-cell;
     vertical-align: middle;
@@ -69,7 +70,7 @@ html {
     display: table;
     float: left;
     padding: 0px 20px;
-    color: aliceblue;
+    color: rgb(221,223,225);
 }
 
 
@@ -96,7 +97,7 @@ html {
 
 .intro {
     display: block;
-    color: white;
+    color: rgb(221,223,225);
     font-family: 'Chivo Mono', monospace;
     height: auto;
     border-radius: 7px;
@@ -138,7 +139,7 @@ html {
 }
 
 .telas h1{
-    color: white;
+    color: rgb(221,223,225);
    text-align: center;
    padding-bottom: 10px;
 }
@@ -149,7 +150,7 @@ html {
 
 
 .log{
-    color: white;
+    color: rgb(221,223,225);
     font-family: 'Chivo Mono', monospace;
     width: 840px;
     text-align: center;
@@ -166,12 +167,20 @@ html {
     padding-bottom: 10px;
 }
 
+.log h3{
+    padding-bottom: 10px;
+}
+
+.log ul{
+    padding-bottom: 5px;
+}
+
 .log h5 {
     padding-bottom: 10px;
 }
 
 .heuristica{
-    color: white;
+    color: rgb(221,223,225);
     font-family: 'Chivo Mono', monospace;
     width: 840px;
     text-align: center;
@@ -188,12 +197,21 @@ html {
     padding-bottom: 10px;
 }
 
+.heuristica h3{
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.heuristica h4{
+    padding-bottom: 10px;
+}
+
 .heuristica ul{
     padding-bottom: 10px;
 }
 
 .download{
-    color: white;
+    color: rgb(221,223,225);
     font-family: 'Chivo Mono', monospace;
     width: 840px;
     text-align: center;
@@ -212,6 +230,6 @@ html {
 
 
 :root {
-    --gradient: linear-gradient(45deg, rgb(0, 0, 0), #666262, black);
+    --gradient: linear-gradient(135deg, #1e1c1c, #575454, #1e1c1c);
 }
 
