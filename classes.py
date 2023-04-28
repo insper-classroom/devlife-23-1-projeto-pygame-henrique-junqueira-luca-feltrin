@@ -9,8 +9,8 @@ class Tela:
         pygame.display.set_caption('Toshis Coxinha Adventure')
         
         self.window = pygame.display.set_mode((540,720))
-        imagem_fundo = pygame.transform.scale(pygame.image.load('assets/imagem_fundo_pygame.jpg'), (540,720))
         imagem_toshi = pygame.transform.scale(pygame.image.load('assets/toshi.png').convert_alpha(),(80,100))
+        imagem_fundo = pygame.transform.scale(pygame.image.load('assets/imagem_fundo_pygame.jpg'), (540,720))
         botao_info = pygame.transform.scale(pygame.image.load('assets/botao_info.png'),(220,140))
         botao_play = pygame.transform.scale(pygame.image.load('assets/botao_play.png'),(220,140))
         plataforma = pygame.transform.scale(pygame.image.load('assets/plataforma.png'),(80,20))
