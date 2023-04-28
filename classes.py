@@ -112,7 +112,7 @@ class Tela:
        
         self.personagem.muda_posicao()
 
-        print(self.assets['colidiu'])
+        print(self.personagem.gravidade)
 
         return True
 
