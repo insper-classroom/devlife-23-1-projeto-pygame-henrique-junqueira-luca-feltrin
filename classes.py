@@ -90,20 +90,10 @@ class Tela:
                 if event.key == pygame.K_w:
                     self.state['desce_tela'] = False
                 
-        # if self.personagem.rect.y < 125:
-        #     self.state['desce_tela'] = True
-            
-        # if self.personagem.rect.y > 150:
-        #         self.state['desce_tela'] = False
 
-
-        # if self.state['desce_tela']:
         for coord in self.state['plataformas']:
             coord.y+=2
-        
-        # if self.personagem.rect.y > 1000:
-        #     return False
-        
+                
 
         self.personagem.update()
 
@@ -185,6 +175,7 @@ class Personagem:
         if self.assets['colidiu']:
             self.gravidade = 0
             
+
 
 
 class Plataformas:

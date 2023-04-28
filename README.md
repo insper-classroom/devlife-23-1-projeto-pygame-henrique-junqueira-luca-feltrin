@@ -11,3 +11,5 @@ Lembre-se de colocar algumas imagens do jogo no seu README.
 Além disso, a página do jogo deve ser feita dentro da pasta `docs`.
 
 APAGUE ESSE CONTEÚDO E SUBSTITUA PELO SEU PRÓPRIO README!
+
+credito som do pulo - Sound Effect from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=6462">Pixabay</a>
