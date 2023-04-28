@@ -213,7 +213,7 @@ html {
 .download{
     color: rgb(221,223,225);
     font-family: 'Chivo Mono', monospace;
-    width: 840px;
+    width:840px ;
     text-align: center;
     height: auto;
     border-radius: 7px;
@@ -224,10 +224,34 @@ html {
     margin-bottom: 30px;
 }
 
-.download h1{
+.download h2{
+    padding-bottom: 10px;
+
+}
+
+.instalacao-requisitos {
+    display: flex;
+    margin: auto;
+    max-width: 850px;
+    padding-top: 125px; 
+    gap: 20px;   
+    display: block;
+    color: rgb(221,223,225);
+    font-family: 'Chivo Mono', monospace;
+    height: auto;
+    border-radius: 7px;
+    border: 2px solid white;
+    padding: 30px;
+    
+}
+
+.instalacao-requisitos h3 {
     padding-bottom: 10px;
 }
 
+.instalacao-requisitos ol{
+    padding-left: 25px ;
+}
 
 :root {
     --gradient: linear-gradient(135deg, #1e1c1c, #575454, #1e1c1c);
