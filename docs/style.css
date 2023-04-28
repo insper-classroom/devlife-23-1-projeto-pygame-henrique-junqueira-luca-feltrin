@@ -211,6 +211,8 @@ html {
 }
 
 .download{
+    display: flex;
+    flex-direction: column;    
     color: rgb(221,223,225);
     font-family: 'Chivo Mono', monospace;
     width:840px ;
@@ -224,15 +226,27 @@ html {
     margin-bottom: 30px;
 }
 
+.download h1{
+    padding-bottom: 10px;
+
+}
 .download h2{
     padding-bottom: 10px;
 
+}
+.download ul{
+    padding-bottom: 10px;
+
+}
+
+.download a{
+    padding-top: 10px;
 }
 
 .instalacao-requisitos {
     display: flex;
     margin: auto;
-    max-width: 850px;
+    max-width: 840px;
     padding-top: 125px; 
     gap: 20px;   
     display: block;
@@ -242,11 +256,12 @@ html {
     border-radius: 7px;
     border: 2px solid white;
     padding: 30px;
-    
+    margin-bottom: 50px;
 }
 
-.instalacao-requisitos h3 {
-    padding-bottom: 10px;
+.instalacao-requisitos h1 {
+    padding-bottom: 20px;
+    text-align: center;
 }
 
 .instalacao-requisitos ol{
