@@ -23,6 +23,10 @@ class Tela:
 
         rect_espinho = pygame.Rect(0,680,540,40)
 
+        pygame.mixer_music.load('musica.mp3\yanya 2 alternate.ogg')
+        pygame.mixer.music.play(loops = -1)
+        self.som = pygame.mixer.Sound('musica.mp3\cartoon-jump-6462.mp3')
+
         fonte = ('fonte/Minecraft.ttf')
         fonte_usa = pygame.font.Font(fonte,20)
 
@@ -130,6 +134,7 @@ class Tela:
                     self.state['pulou'] = True
                     self.personagem.gravidade = -15
                     self.state['pulos'] +=1
+                    self.som.play()
 
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_a:
@@ -153,6 +158,7 @@ class Tela:
             self.personagem.rect.bottom = self.state['espinho'].y +20
             self.state['tela_gameover'] = True
             self.state['tela_jogo'] = False
+            self.state['tela_inicio'] = False
 
         test = False
         for plataforma in self.state['plataformas']:
