@@ -20,6 +20,11 @@ class Tela:
         teclas = pygame.transform.scale(pygame.image.load('assets/teclas.png'),(270,173))
         chegada = pygame.image.load('assets/chegada.png')
 
+        rect_espinho = pygame.Rect(0,680,540,40)
+
+        fonte = ('fonte/Minecraft.ttf')
+        fonte_usa = pygame.font.Font(fonte,20)
+
         self.state = {
             'tela_inicio':True,
             'tela_jogo':False,
@@ -35,7 +40,10 @@ class Tela:
             'altura': 0,
             'pulou': True,
             'pulos':0,
-            'chegada' :-16200
+            'chegada' :-16200,
+            'segundos': 0 ,
+            'contador':0 ,
+            'espinho' : rect_espinho       
         }
 
         self.assets = {
@@ -51,7 +59,8 @@ class Tela:
             'seta':seta,
             'instru':instru,
             'teclas':teclas,
-            'chegada':chegada
+            'chegada':chegada,
+            'fonte' : fonte_usa
         }
 
 
@@ -73,7 +82,12 @@ class Tela:
         self.state['tempo'] = tempo/1000
         
         mouse_pos = pygame.mouse.get_pos()
-        
+        if self.personagem.alt != 1000:
+            self.state['contador']+=1
+            if self.state['contador'] == 70:
+                self.state['contador'] = 0
+                self.state['segundos'] +=1
+
         altura1 = self.personagem.rect.y
         if altura1 == self.state['altura'] or self.state['colidiu']:
             pode_pular = True
@@ -144,8 +158,11 @@ class Tela:
             self.state['colidiu'] = False
 
         # if rect_chegada.colliderect(self.personagem.rect):
-            
-       
+
+        if self.state['espinho'].colliderect(self.personagem.rect):
+            self.personagem.rect.bottom = self.state['espinho'].y +20
+
+        print(self.state['segundos'])
        
         self.personagem.muda_posicao()
         
@@ -171,14 +188,15 @@ class Tela:
         if self.state['tela_jogo']:
             self.window.blit(self.assets['imagem_fundo'],(0,0))
             self.window.blit(self.assets['espinho'],(0,680))
-            
+            img = self.assets['fonte'].render(f'Tempo total: {self.state["segundos"]}' , True , (0,0,0))
+
             for coord in self.state['plataformas']:
                 plat = Plataformas(self.window,80,15,coord.x,coord.y, self.assets)
                 plat.desenha_plataformas()
 
             chegada = Chegada(self.window,540,50,0,self.state['chegada'],self.assets,self.state)
             chegada.desenha_chegada()
-
+            self.window.blit(img,(10,50))
             
             
 
