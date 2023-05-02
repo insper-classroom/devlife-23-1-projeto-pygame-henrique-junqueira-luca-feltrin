@@ -187,7 +187,6 @@ class Tela:
             self.window.blit(self.assets['botao_play'],(180,350))
             self.window.blit(self.assets['botao_info'],(180,420))
 
-            pygame.display.update()
 
         if self.state['tela_info']:
             self.window.blit(self.assets['imagem_fundo'],(0,0))
@@ -195,7 +194,6 @@ class Tela:
             self.window.blit(self.assets['instru'],(135,60))
             self.window.blit(self.assets['teclas'],(135,330))
 
-            pygame.display.update()
 
         if self.state['tela_jogo']:
             self.window.blit(self.assets['imagem_fundo'],(0,0))
@@ -211,7 +209,6 @@ class Tela:
             self.window.blit(img,(10,50))
             
             self.personagem.desenha()
-            pygame.display.update()
         
         if self.state['tela_ganhou']:
             self.window.blit(self.assets['imagem_fundo'],(0,0))
@@ -219,14 +216,13 @@ class Tela:
             txt_ganhou = self.assets['fonte'].render('Voce Ganhou!!!',True,(0,0,0))
             self.window.blit(txt_ganhou,(200,640))
 
-            pygame.display.update()
         
         if self.state['tela_gameover']:
             self.window.blit(self.assets['imagem_fundo'],(0,0))
             txt_perdeu = self.assets['fonte'].render('Voce Perdeu!!!',True,(0,0,0))
             self.window.blit(txt_perdeu,(200,370))
 
-            pygame.display.update()
+        pygame.display.update()
 
     def game_loop(self):
         while self.atualiza_estado():
@@ -272,8 +268,6 @@ class Personagem:
         if self.state['colidiu']:
             self.gravidade = 0
             
-
-
 
 class Plataformas:
     def __init__(self,window,width,height,coord_x,coord_y, assets):
