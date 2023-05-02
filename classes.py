@@ -19,6 +19,7 @@ class Tela:
         instru = pygame.transform.scale(pygame.image.load('assets/instru.png'),(270,360))
         teclas = pygame.transform.scale(pygame.image.load('assets/teclas.png'),(270,173))
         chegada = pygame.image.load('assets/chegada.png')
+        trofeu = pygame.transform.scale(pygame.image.load('assets/trofeu.png'),(300,450))
 
         rect_espinho = pygame.Rect(0,680,540,40)
 
@@ -31,6 +32,7 @@ class Tela:
             'tela_gameover': False,
             'desce_tela': False,
             'tela_info': False,
+            'tela_ganhou': False,
             'desce_tela_num':0,
             'plataformas': [],
             'rect_plataformas':[],
@@ -60,7 +62,8 @@ class Tela:
             'instru':instru,
             'teclas':teclas,
             'chegada':chegada,
-            'fonte' : fonte_usa
+            'fonte' : fonte_usa,
+            'trofeu':trofeu
         }
 
 
@@ -80,6 +83,8 @@ class Tela:
         tempo = t1- self.state['t0'] if self.state['t0']>=0 else t1
         self.state['t0'] = t1
         self.state['tempo'] = tempo/1000
+        
+        rect_chegada = pygame.Rect(0,self.state['chegada'],540,50)
         
         mouse_pos = pygame.mouse.get_pos()
         if self.personagem.alt != 1000:
@@ -103,18 +108,16 @@ class Tela:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if self.assets['rect_play'].collidepoint(mouse_pos):
                     self.state['tela_inicio'] = False
-                    self.state['tela_info'] = False
                     self.state['tela_jogo'] = True
 
                 if self.assets['rect_info'].collidepoint(mouse_pos):
                     self.state['tela_inicio'] = False
-                    self.state['tela_jogo'] = False
                     self.state['tela_info'] = True
 
                 if self.assets['rect_seta'].collidepoint(mouse_pos):
                     self.state['tela_inicio'] = True
-                    self.state['tela_jogo'] = False
                     self.state['tela_info'] = False
+
 
             if event.type == pygame.QUIT:
                 return False
@@ -142,7 +145,14 @@ class Tela:
 
         self.personagem.update()
 
-        rect_chegada = pygame.Rect(0,self.state['chegada'],540,50)
+        if rect_chegada.colliderect(self.personagem.rect):
+            self.state['tela_ganhou'] = True
+            self.state['tela_jogo'] = False
+
+        if self.state['espinho'].colliderect(self.personagem.rect):
+            self.personagem.rect.bottom = self.state['espinho'].y +20
+            self.state['tela_gameover'] = True
+            self.state['tela_jogo'] = False
 
         test = False
         for plataforma in self.state['plataformas']:
@@ -157,10 +167,6 @@ class Tela:
         if (not test):
             self.state['colidiu'] = False
 
-        # if rect_chegada.colliderect(self.personagem.rect):
-
-        if self.state['espinho'].colliderect(self.personagem.rect):
-            self.personagem.rect.bottom = self.state['espinho'].y +20
 
         print(self.state['segundos'])
        
@@ -198,9 +204,22 @@ class Tela:
             chegada.desenha_chegada()
             self.window.blit(img,(10,50))
             
-            
-
             self.personagem.desenha()
+            pygame.display.update()
+        
+        if self.state['tela_ganhou']:
+            self.window.blit(self.assets['imagem_fundo'],(0,0))
+            self.window.blit(self.assets['trofeu'],(120,140))
+            txt_ganhou = self.assets['fonte'].render('Voce Ganhou!!!',True,(0,0,0))
+            self.window.blit(txt_ganhou,(200,640))
+
+            pygame.display.update()
+        
+        if self.state['tela_gameover']:
+            self.window.blit(self.assets['imagem_fundo'],(0,0))
+            txt_perdeu = self.assets['fonte'].render('Voce Perdeu!!!',True,(0,0,0))
+            self.window.blit(txt_perdeu,(200,370))
+
             pygame.display.update()
 
     def game_loop(self):
