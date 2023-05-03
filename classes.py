@@ -18,8 +18,9 @@ class Tela:
         seta = pygame.transform.scale(pygame.image.load('assets/seta_pygame.png'),(50,50))
         instru = pygame.transform.scale(pygame.image.load('assets/instru.png'),(270,360))
         teclas = pygame.transform.scale(pygame.image.load('assets/teclas.png'),(270,173))
-        chegada = pygame.image.load('assets/chegada.png')
         coxinha = pygame.transform.scale(pygame.image.load('assets/coxinha.png'),(300,450))
+        relogio = pygame.transform.scale(pygame.image.load('assets/relogio.png'),(40,40))
+        chegada = pygame.image.load('assets/chegada.png')
 
         rect_espinho = pygame.Rect(0,680,540,40)
 
@@ -51,8 +52,11 @@ class Tela:
             'segundos': 0 ,
             'contador':0 ,
             'espinho' : rect_espinho,
-            'verifica' : False
-
+            'verifica' : False,
+            'rect': [],
+            'conta_relo':0,
+            'veri': False,
+            'retira': 0
         }
 
         self.assets = {
@@ -71,7 +75,8 @@ class Tela:
             'chegada':chegada,
             'fonte' : fonte_usa,
             'coxinha':coxinha,
-            'fonte_maior': fonte_maior
+            'fonte_maior': fonte_maior,
+            'relogio' : relogio
         }
 
 
@@ -83,6 +88,14 @@ class Tela:
         
         with open('highscore.txt','r') as arquivo:
             self.highscore = arquivo.read()
+
+        self.state['rect'].append(pygame.Rect(230,-330,80,15))
+        self.state['rect'].append(pygame.Rect(140,0,80,15))
+        self.state['rect'].append(pygame.Rect(430,-1230,80,15))
+        self.state['rect'].append(pygame.Rect(80,-15030,80,15))
+        self.state['rect'].append(pygame.Rect(330,-10030,80,15))
+        self.state['rect'].append(pygame.Rect(470,-730,80,15))
+        self.state['rect'].append(pygame.Rect(110,-4900,80,15))
 
 
         self.personagem = Personagem(self.window, [230, 550] , self.assets, self.state)
@@ -153,6 +166,8 @@ class Tela:
             for coord in self.state['plataformas']:
                 coord.y += 3
             self.state['chegada'] += 3
+            for relogio in self.state['rect']:
+                relogio.y+=3
             
 
         self.personagem.update()
@@ -184,6 +199,12 @@ class Tela:
         if (not test):
             self.state['colidiu'] = False
 
+        
+        for relogio in self.state['rect']:
+            if self.personagem.rect.colliderect(relogio):
+                self.state['segundos']-=2
+                self.state['rect'].remove(relogio)
+            
 
         self.personagem.muda_posicao()
         
@@ -218,6 +239,9 @@ class Tela:
             chegada.desenha_chegada()
             self.window.blit(img,(10,50))
             self.window.blit(highscore,(13,75))
+            
+            for relogio in self.state['rect']:
+                self.window.blit(self.assets['relogio'], (relogio.x,relogio.y))
 
             self.personagem.desenha()
         
