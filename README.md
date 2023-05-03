@@ -30,6 +30,6 @@ Para jogar basta apenas cliclar com o botão esquerdo do mouse no retângulo esc
 ## Telas do jogo
 
 !["Imagem incio"](assets\inicio.png)
-!["Imagem jogo"](assets\tela_jogo.png)
+!["Imagem jogo"](tela_jogo.png)
 
 credito som pulo/musica - Sound Effect from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=6462">Pixabay</a>
