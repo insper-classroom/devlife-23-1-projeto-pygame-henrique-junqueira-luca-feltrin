@@ -54,9 +54,7 @@ class Tela:
             'espinho' : rect_espinho,
             'verifica' : False,
             'rect': [],
-            'conta_relo':0,
-            'veri': False,
-            'retira': 0
+            'chegou': False
         }
 
         self.assets = {
@@ -111,7 +109,7 @@ class Tela:
         rect_chegada = pygame.Rect(0,self.state['chegada'],540,50)
         
         mouse_pos = pygame.mouse.get_pos()
-        if self.personagem.alt != 1000:
+        if self.personagem.alt != 1000 and (not self.state['chegou']):
             self.state['contador']+=1
             if self.state['contador'] == 70:
                 self.state['contador'] = 0
@@ -173,6 +171,7 @@ class Tela:
         self.personagem.update()
 
         if rect_chegada.colliderect(self.personagem.rect):
+            self.state['chegou'] = True
             with open('highscore.txt','w') as arquivo:
                 arquivo.write(f"{self.state['segundos']}")
 
@@ -250,10 +249,8 @@ class Tela:
             self.window.blit(self.assets['coxinha'],(120,100))
             parabens = self.assets['fonte_maior'].render('Parabens!!!',True,(255,0,0))
             txt_ganhou = self.assets['fonte_maior'].render(f'Voce Ganhou!!!',True,(0,0,0))
-            score = self.assets['fonte_maior'].render(f'Seu score foi {self.state["segundos"]}',True,(0,0,0))
             self.window.blit(txt_ganhou,(130,600))
             self.window.blit(parabens,(173,640))
-            self.window.blit(score,(213,600))
         
         
         if self.state['tela_gameover']:
