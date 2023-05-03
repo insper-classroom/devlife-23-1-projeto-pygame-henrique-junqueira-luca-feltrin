@@ -54,7 +54,8 @@ class Tela:
             'espinho' : rect_espinho,
             'verifica' : False,
             'rect': [],
-            'chegou': False
+            'chegou': False,
+            'highscore':0
         }
 
         self.assets = {
@@ -172,9 +173,10 @@ class Tela:
 
         if rect_chegada.colliderect(self.personagem.rect):
             self.state['chegou'] = True
-            with open('highscore.txt','w') as arquivo:
-                arquivo.write(f"{self.state['segundos']}")
-
+            if self.state['segundos'] > self.state['highscore']:
+                with open('highscore.txt','w') as arquivo:
+                    arquivo.write(f"{self.state['segundos']}")
+                self.state['highscore'] = self.state['segundos']
             self.state['tela_ganhou'] = True
             self.state['tela_jogo'] = False
             self.state['verifica'] = True
