@@ -217,7 +217,7 @@ class Tela:
             chegada = Chegada(self.window,540,50,0,self.state['chegada'],self.assets,self.state)
             chegada.desenha_chegada()
             self.window.blit(img,(10,50))
-            self.window.blit(highscore,10,65)
+            self.window.blit(highscore,(13,75))
 
             self.personagem.desenha()
         
