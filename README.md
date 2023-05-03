@@ -11,7 +11,7 @@ O jogo consiste em um personagem(Toshi) pulando diversas plataformas para chegar
 ## Preparação
 
 Primeiramente é necessário ter o Python 3 instalado no computador. Além disso é também necessário ter a biblioteca
-pygame instalada no PC. Para instalar a biblioteca, copie a mensagem abaixo em seu PC:
+pygame instalada no PC. Para instalar a biblioteca, copie a mensagem abaixo no terminal do seu VScode:
 
 ```bash
 pip install pygame
@@ -39,4 +39,4 @@ Aqui estão as duas telas principais de nosso jogo, para ver as demais telas(inf
 
 Som pulo/musica - Sound Effect from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=6462">Pixabay</a>
 
-Ideia pulo personagem - <a href="https://www.youtube.com/watch?v=AY9MnQ4x3zk&t=6443s">Youtube</a>
+Ideia pulo personagem - minuto 96 - <a href="https://www.youtube.com/watch?v=AY9MnQ4x3zk&t=6443s">Youtube</a>
