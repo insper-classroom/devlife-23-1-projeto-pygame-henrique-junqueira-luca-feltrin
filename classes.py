@@ -19,7 +19,7 @@ class Tela:
         instru = pygame.transform.scale(pygame.image.load('assets/instru.png'),(270,360))
         teclas = pygame.transform.scale(pygame.image.load('assets/teclas.png'),(270,173))
         chegada = pygame.image.load('assets/chegada.png')
-        trofeu = pygame.transform.scale(pygame.image.load('assets/trofeu.png'),(300,450))
+        coxinha = pygame.transform.scale(pygame.image.load('assets/coxinha.png'),(300,450))
 
         rect_espinho = pygame.Rect(0,680,540,40)
 
@@ -29,6 +29,7 @@ class Tela:
 
         fonte = ('fonte/Minecraft.ttf')
         fonte_usa = pygame.font.Font(fonte,20)
+        fonte_maior = pygame.font.Font(fonte,40)
 
         self.state = {
             'tela_inicio':True,
@@ -49,7 +50,9 @@ class Tela:
             'chegada' :-16200,
             'segundos': 0 ,
             'contador':0 ,
-            'espinho' : rect_espinho       
+            'espinho' : rect_espinho,
+            'verifica' : False
+
         }
 
         self.assets = {
@@ -67,7 +70,8 @@ class Tela:
             'teclas':teclas,
             'chegada':chegada,
             'fonte' : fonte_usa,
-            'trofeu':trofeu
+            'trofeu':coxinha,
+            'fonte_maior': fonte_maior
         }
 
 
@@ -153,6 +157,7 @@ class Tela:
         if rect_chegada.colliderect(self.personagem.rect):
             self.state['tela_ganhou'] = True
             self.state['tela_jogo'] = False
+            self.state['verifica'] = True
 
         if self.state['espinho'].colliderect(self.personagem.rect):
             self.personagem.rect.bottom = self.state['espinho'].y +20
@@ -174,8 +179,6 @@ class Tela:
             self.state['colidiu'] = False
 
 
-        print(self.state['segundos'])
-       
         self.personagem.muda_posicao()
         
 
@@ -212,15 +215,21 @@ class Tela:
         
         if self.state['tela_ganhou']:
             self.window.blit(self.assets['imagem_fundo'],(0,0))
-            self.window.blit(self.assets['trofeu'],(120,140))
-            txt_ganhou = self.assets['fonte'].render('Voce Ganhou!!!',True,(0,0,0))
-            self.window.blit(txt_ganhou,(200,640))
+            self.window.blit(self.assets['trofeu'],(120,100))
+            parabens = self.assets['fonte_maior'].render('Parabens!!!',True,(255,0,0))
+            txt_ganhou = self.assets['fonte_maior'].render('Voce Ganhou!!!',True,(0,0,0))
+            self.window.blit(txt_ganhou,(130,600))
+            self.window.blit(parabens,(173,640))
+
 
         
         if self.state['tela_gameover']:
             self.window.blit(self.assets['imagem_fundo'],(0,0))
-            txt_perdeu = self.assets['fonte'].render('Voce Perdeu!!!',True,(0,0,0))
-            self.window.blit(txt_perdeu,(200,370))
+            horrivel = self.assets['fonte_maior'].render('Ruim demais KKKKKKK',True,(0,0,0))
+            txt_perdeu = self.assets['fonte_maior'].render('Voce Perdeu!!!',True,(0,0,0))
+            self.window.blit(txt_perdeu,(130,370))
+            self.window.blit(horrivel,(70,410))
+
 
         pygame.display.update()
 
@@ -245,7 +254,7 @@ class Personagem:
         self.window.blit(self.assets['toshi'],(self.rect.x,self.rect.y ))
     
     def update(self):
-        if self.colidiu:
+        if self.colidiu or self.state['verifica']:
             self.gravidade = 0
         else:
             self.gravidade+=0.8
