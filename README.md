@@ -35,5 +35,8 @@ Aqui estão as duas telas principais de nosso jogo, para ver as demais telas(inf
 <img src="tela_jogo.png" alt="Tela do jogo" width="300" height="300" />
 
 
+## Créditos 
 
-credito som pulo/musica - Sound Effect from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=6462">Pixabay</a>
+Som pulo/musica - Sound Effect from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=6462">Pixabay</a>
+
+Ideia pulo personagem - <a href="https://www.youtube.com/watch?v=AY9MnQ4x3zk&t=6443s">Youtube</a>
