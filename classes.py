@@ -225,11 +225,12 @@ class Tela:
             self.window.blit(self.assets['imagem_fundo'],(0,0))
             self.window.blit(self.assets['coxinha'],(120,100))
             parabens = self.assets['fonte_maior'].render('Parabens!!!',True,(255,0,0))
-            txt_ganhou = self.assets['fonte_maior'].render(f'Voce Ganhou!!!, Seu score é de:{self.state["segundos"]}',True,(0,0,0))
+            txt_ganhou = self.assets['fonte_maior'].render(f'Voce Ganhou!!!',True,(0,0,0))
+            score = self.assets['fonte_maior'].render(f'Seu score foi {self.state["segundos"]}',True,(0,0,0))
             self.window.blit(txt_ganhou,(130,600))
             self.window.blit(parabens,(173,640))
-
-
+            self.window.blit(score,(213,600))
+        
         
         if self.state['tela_gameover']:
             self.window.blit(self.assets['imagem_fundo'],(0,0))
