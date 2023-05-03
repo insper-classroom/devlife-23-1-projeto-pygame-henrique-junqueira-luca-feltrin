@@ -29,7 +29,7 @@ Para jogar basta apenas cliclar com o botão esquerdo do mouse no retângulo esc
 
 ## Telas do jogo
 
-Aqui estão as duas telas principais de nosso jogo, para ver as demais telas(info,ganhar e perder) experimente nosso jogo ;)
+Aqui estão as duas telas principais de nosso jogo, para ver as demais telas(info,ganhar e perder) **experimente** nosso jogo ;)
 
 <img src="inicio.png" alt="Tela inicio" width="300" height="300" />
 <img src="tela_jogo.png" alt="Tela do jogo" width="300" height="300" />
