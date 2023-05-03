@@ -70,7 +70,7 @@ class Tela:
             'teclas':teclas,
             'chegada':chegada,
             'fonte' : fonte_usa,
-            'trofeu':coxinha,
+            'coxinha':coxinha,
             'fonte_maior': fonte_maior
         }
 
@@ -80,6 +80,9 @@ class Tela:
             for linha in linhas:
                 coord = linha.split(',')
                 self.state['plataformas'].append(pygame.Rect(int(coord[0]),int(coord[1]),80,15))
+        
+        with open('highscore.txt','r') as arquivo:
+            self.highscore = arquivo.read()
 
 
         self.personagem = Personagem(self.window, [230, 550] , self.assets, self.state)
@@ -155,6 +158,9 @@ class Tela:
         self.personagem.update()
 
         if rect_chegada.colliderect(self.personagem.rect):
+            with open('highscore.txt','w') as arquivo:
+                arquivo.write(f"{self.state['segundos']}")
+
             self.state['tela_ganhou'] = True
             self.state['tela_jogo'] = False
             self.state['verifica'] = True
@@ -202,6 +208,7 @@ class Tela:
             self.window.blit(self.assets['imagem_fundo'],(0,0))
             self.window.blit(self.assets['espinho'],(0,680))
             img = self.assets['fonte'].render(f'Tempo total: {self.state["segundos"]}' , True , (0,0,0))
+            highscore = self.assets['fonte'].render(f'Highscore: {self.highscore}',True,(0,0,0))
 
             for coord in self.state['plataformas']:
                 plat = Plataformas(self.window,80,15,coord.x,coord.y, self.assets)
@@ -210,14 +217,15 @@ class Tela:
             chegada = Chegada(self.window,540,50,0,self.state['chegada'],self.assets,self.state)
             chegada.desenha_chegada()
             self.window.blit(img,(10,50))
-            
+            self.window.blit(highscore,10,65)
+
             self.personagem.desenha()
         
         if self.state['tela_ganhou']:
             self.window.blit(self.assets['imagem_fundo'],(0,0))
-            self.window.blit(self.assets['trofeu'],(120,100))
+            self.window.blit(self.assets['coxinha'],(120,100))
             parabens = self.assets['fonte_maior'].render('Parabens!!!',True,(255,0,0))
-            txt_ganhou = self.assets['fonte_maior'].render('Voce Ganhou!!!',True,(0,0,0))
+            txt_ganhou = self.assets['fonte_maior'].render(f'Voce Ganhou!!!, Seu score é de:{self.state["segundos"]}',True,(0,0,0))
             self.window.blit(txt_ganhou,(130,600))
             self.window.blit(parabens,(173,640))
 
